@@ -13,7 +13,7 @@
 //A0 = 1 → payload bytes are display data → stored into display RAM, and internal pointer auto-increments.
 //A0 = 0 → payload bytes are commands → decoded to change settings.
 //W  = 0 -> Write
-//
+//SA0 = 0 SA1 = 1
 // -------- Reset / strap pins (adjust if needed) --------
 void ST7539_HWReset(void) {
   HAL_GPIO_WritePin(RST_GPIO_Port, RST_Pin, GPIO_PIN_RESET);
