@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"
+#include <stdio.h>
+#include <string.h>
 #include "ST7539.h"
 /* USER CODE END Includes */
 
@@ -74,6 +75,7 @@ static void print_scan(const ST7539ScanResult8 *r) {
   printf("FOUND: CMD8W=0x%02X DATA8W=0x%02X SA1=%d SA0=%d\r\n",
          r->cmd8w, r->data8w, r->sa0, r->sa0);
 }
+void I2C_Scan(void);
 /* USER CODE END 0 */
 
 /**
@@ -107,21 +109,65 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  ST7539_HWReset();
+//  ST7539_HWReset();
+//  I2C_Scan(&hi2c2);
+//  I2C_Scan();
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, 1);
+  HAL_Delay(100);
+	printf("Scanning I2C bus:\r\n");
+	HAL_StatusTypeDef result;
+	uint8_t i;
+	for (i=1; i<128; i++)
+	{
 
+	  result = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 2, 20);
+	  if (result != HAL_OK)
+	  {
+		  printf("."); // No ACK received at that address
+	  }
+	  if (result == HAL_OK)
+	  {
+		  printf("0x%X", i); // Received an ACK at that address
+	  }
+	}
+	printf("\r\n");
   /* USER CODE END 2 */
-
+	ST7539_Clear(&hi2c1);
+	ST7539_InitBasic(&hi2c1);
+	ST7539_Clear(&hi2c1);
+	uint32_t last = HAL_GetTick();
+	uint32_t elapsed_sec = 0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-	  result = ST7539_FindAddressPair(&hi2c1);
-	  print_scan(&result);
-//	  HAL_I2C_Master_Transmit(&hi2c1, 1, buf, 2, HAL_MAX_DELAY);
-	  HAL_Delay(3000);
-    /* USER CODE BEGIN 3 */
-  }
+//	  while (1)
+//	  {
+//		// Clear display first if you want (recommended)
+//		// ST7539_Clear(&hi2c1);
+//		ST7539_DrawText16x16(&hi2c1, 1, 0, "1 2 : 1 6 : 2 4"); // uses pages 2-3
+//
+//		HAL_Delay(2000);
+//	  }
+
+	while (1)
+	{
+	  uint32_t now = HAL_GetTick();
+	  if ((now - last) >= 1000) {
+	    last += 1000;
+	    elapsed_sec++;
+
+	    uint8_t hh = (elapsed_sec / 3600) % 24;
+	    uint8_t mm = (elapsed_sec / 60) % 60;
+	    uint8_t ss = (elapsed_sec) % 60;
+
+	    // page=1 means it uses pages 1 and 2 (since 16px tall uses page and page+1)
+	    Clock_Draw(&hi2c1, 1, 0, hh, mm, ss);
+
+//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 4);
+//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 5);
+
+	  }
+	}
+
   /* USER CODE END 3 */
 }
 
@@ -142,12 +188,11 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 4;
   RCC_OscInitStruct.PLL.PLLN = 168;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
@@ -220,10 +265,14 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, CS0_Pin|RST_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_4, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : CS0_Pin RST_Pin */
   GPIO_InitStruct.Pin = CS0_Pin|RST_Pin;
@@ -232,13 +281,43 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PD4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+void I2C_Scan(void)
+{
+    char buffer[25];
+    int buffer_len;
+    HAL_StatusTypeDef result;
+    uint8_t i;
+    buffer_len = sprintf(buffer, "Scanning I2C bus:\r\n");
+//    HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, buffer_len, 1000);
+    printf(buffer);
 
+    for (i = 1; i < 128; i++)
+    {
+        result = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i << 1), 2, 2);
+        if (result == HAL_OK)
+        {
+            buffer_len = sprintf(buffer, "0x%02X ", i);
+//            HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, buffer_len, 1000);
+            printf(buffer);
+        }
+    }
+    buffer_len = sprintf(buffer, "\r\n");
+//    HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, buffer_len, 1000);
+    printf(buffer);
+}
 /* USER CODE END 4 */
 
 /**
