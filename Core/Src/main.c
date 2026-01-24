@@ -151,19 +151,23 @@ int main(void)
 	while (1)
 	{
 	  uint32_t now = HAL_GetTick();
-	  if ((now - last) >= 1000) {
-	    last += 1000;
-	    elapsed_sec++;
-
-	    uint8_t hh = (elapsed_sec / 3600) % 24;
-	    uint8_t mm = (elapsed_sec / 60) % 60;
-	    uint8_t ss = (elapsed_sec) % 60;
-
-	    // page=1 means it uses pages 1 and 2 (since 16px tall uses page and page+1)
-	    Clock_Draw(&hi2c1, 1, 0, hh, mm, ss);
-
-//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 4);
-//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 5);
+	  if ((now - last) >= 3000) {
+//	    last += 1000;
+//	    elapsed_sec++;
+//
+//	    uint8_t hh = (elapsed_sec / 3600) % 24;
+//	    uint8_t mm = (elapsed_sec / 60) % 60;
+//	    uint8_t ss = (elapsed_sec) % 60;
+//
+//	    // page=1 means it uses pages 1 and 2 (since 16px tall uses page and page+1)
+//	    Clock_Draw(&hi2c1, 1, 0, hh, mm, ss);
+//
+////	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 4);
+////	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 5);
+		  ST7539_DrawLine5x7(&hi2c1, 0, 0, "Nhiet do:");
+		  ST7539_DrawLine5x7(&hi2c1, 1, 0, "Do am:");
+		  ST7539_DrawLine5x7(&hi2c1, 2, 0, "Khi gas:");
+		  ST7539_DrawLine5x7(&hi2c1, 3, 0, "Cai gi do khac:");
 
 	  }
 	}

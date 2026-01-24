@@ -172,3 +172,179 @@ static const Glyph16W font16[] = {
   }},
 
 };
+
+// 5x7 font, columns (5 bytes), LSB = top row (bit0), uses bits 0..6
+static const uint8_t FONT5x7_SPACE[2] = {0x00,0x00};
+
+static const uint8_t FONT5x7_A[5] = {0x7E,0x11,0x11,0x11,0x7E};
+static const uint8_t FONT5x7_B[5] = {0x7F,0x49,0x49,0x49,0x36};
+static const uint8_t FONT5x7_C[5] = {0x3E,0x41,0x41,0x41,0x22};
+static const uint8_t FONT5x7_D[5] = {0x7F,0x41,0x41,0x22,0x1C};
+static const uint8_t FONT5x7_E[5] = {0x7F,0x49,0x49,0x49,0x41};
+static const uint8_t FONT5x7_F[5] = {0x7F,0x09,0x09,0x09,0x01};
+static const uint8_t FONT5x7_G[5] = {0x3E,0x41,0x49,0x49,0x7A};
+static const uint8_t FONT5x7_H[5] = {0x7F,0x08,0x08,0x08,0x7F};
+static const uint8_t FONT5x7_I[5] = {0x00,0x41,0x7F,0x41,0x00};
+static const uint8_t FONT5x7_J[5] = {0x20,0x40,0x41,0x3F,0x01};
+static const uint8_t FONT5x7_K[5] = {0x7F,0x08,0x14,0x22,0x41};
+static const uint8_t FONT5x7_L[5] = {0x7F,0x40,0x40,0x40,0x40};
+static const uint8_t FONT5x7_M[5] = {0x7F,0x02,0x0C,0x02,0x7F};
+static const uint8_t FONT5x7_N[5] = {0x7F,0x04,0x08,0x10,0x7F};
+static const uint8_t FONT5x7_O[5] = {0x3E,0x41,0x41,0x41,0x3E};
+static const uint8_t FONT5x7_P[5] = {0x7F,0x09,0x09,0x09,0x06};
+static const uint8_t FONT5x7_Q[5] = {0x3E,0x41,0x51,0x21,0x5E};
+static const uint8_t FONT5x7_R[5] = {0x7F,0x09,0x19,0x29,0x46};
+static const uint8_t FONT5x7_S[5] = {0x46,0x49,0x49,0x49,0x31};
+static const uint8_t FONT5x7_T[5] = {0x01,0x01,0x7F,0x01,0x01};
+static const uint8_t FONT5x7_U[5] = {0x3F,0x40,0x40,0x40,0x3F};
+static const uint8_t FONT5x7_V[5] = {0x1F,0x20,0x40,0x20,0x1F};
+static const uint8_t FONT5x7_W[5] = {0x7F,0x20,0x18,0x20,0x7F};
+static const uint8_t FONT5x7_X[5] = {0x63,0x14,0x08,0x14,0x63};
+static const uint8_t FONT5x7_Y[5] = {0x07,0x08,0x70,0x08,0x07};
+static const uint8_t FONT5x7_Z[5] = {0x61,0x51,0x49,0x45,0x43};
+
+// ---------- 5x7 lowercase (a-z) ----------
+static const uint8_t FONT5x7_a[5] = {0x02,0x15,0x15,0x15,0x0F};
+static const uint8_t FONT5x7_b[5] = {0x7F,0x09,0x11,0x11,0x0E};
+static const uint8_t FONT5x7_c[5] = {0x0E,0x11,0x11,0x11,0x02};
+static const uint8_t FONT5x7_d[5] = {0x0E,0x11,0x11,0x09,0x7F};
+static const uint8_t FONT5x7_e[5] = {0x0E,0x15,0x15,0x15,0x0C};
+static const uint8_t FONT5x7_f[5] = {0x08,0x3F,0x48,0x40,0x20};
+static const uint8_t FONT5x7_g[5] = {0x0C,0x15,0x15,0x15,0x1E};
+static const uint8_t FONT5x7_h[5] = {0x7F,0x08,0x10,0x10,0x0F};
+static const uint8_t FONT5x7_i[5] = {0x00,0x11,0x5F,0x01,0x00};
+static const uint8_t FONT5x7_j[5] = {0x02,0x01,0x11,0x5E,0x00};
+static const uint8_t FONT5x7_k[5] = {0x7F,0x04,0x0A,0x11,0x00};
+static const uint8_t FONT5x7_l[5] = {0x00,0x41,0x7F,0x01,0x00};
+static const uint8_t FONT5x7_m[5] = {0x1F,0x10,0x0F,0x10,0x0F};
+static const uint8_t FONT5x7_n[5] = {0x1F,0x08,0x10,0x10,0x0F};
+static const uint8_t FONT5x7_o[5] = {0x0E,0x11,0x11,0x11,0x0E};
+static const uint8_t FONT5x7_p[5] = {0x1F,0x14,0x14,0x14,0x08};
+static const uint8_t FONT5x7_q[5] = {0x08,0x14,0x14,0x18,0x1F};
+static const uint8_t FONT5x7_r[5] = {0x1F,0x08,0x10,0x10,0x08};
+static const uint8_t FONT5x7_s[5] = {0x09,0x15,0x15,0x15,0x02};
+static const uint8_t FONT5x7_t[5] = {0x10,0x7E,0x11,0x01,0x02};
+static const uint8_t FONT5x7_u[5] = {0x1E,0x01,0x01,0x02,0x1F};
+static const uint8_t FONT5x7_v[5] = {0x1C,0x02,0x01,0x02,0x1C};
+static const uint8_t FONT5x7_w[5] = {0x1E,0x01,0x06,0x01,0x1E};
+static const uint8_t FONT5x7_x[5] = {0x11,0x0A,0x04,0x0A,0x11};
+static const uint8_t FONT5x7_y[5] = {0x18,0x05,0x05,0x05,0x1E};
+static const uint8_t FONT5x7_z[5] = {0x11,0x13,0x15,0x19,0x11};
+
+// ---------- 5x7 digits ----------
+static const uint8_t FONT5x7_0[5] = {0x3E,0x45,0x49,0x51,0x3E};
+static const uint8_t FONT5x7_1[5] = {0x00,0x21,0x7F,0x01,0x00};
+static const uint8_t FONT5x7_2[5] = {0x21,0x43,0x45,0x49,0x31};
+static const uint8_t FONT5x7_3[5] = {0x42,0x41,0x51,0x69,0x46};
+static const uint8_t FONT5x7_4[5] = {0x0C,0x14,0x24,0x7F,0x04};
+static const uint8_t FONT5x7_5[5] = {0x72,0x51,0x51,0x51,0x4E};
+static const uint8_t FONT5x7_6[5] = {0x1E,0x29,0x49,0x49,0x06};
+static const uint8_t FONT5x7_7[5] = {0x40,0x47,0x48,0x50,0x60};
+static const uint8_t FONT5x7_8[5] = {0x36,0x49,0x49,0x49,0x36};
+static const uint8_t FONT5x7_9[5] = {0x30,0x49,0x49,0x4A,0x3C};
+
+// ---------- 5x7 punctuation ----------
+static const uint8_t FONT5x7_COLON[5] = {0x00,0x36,0x36,0x00,0x00}; // :
+static const uint8_t FONT5x7_DOT[5]   = {0x00,0x60,0x60,0x00,0x00}; // .
+static const uint8_t FONT5x7_COMMA[5] = {0x00,0x80,0x60,0x00,0x00}; // ,
+static const uint8_t FONT5x7_DASH[5]  = {0x08,0x08,0x08,0x08,0x08}; // -
+static const uint8_t FONT5x7_UNDER[5] = {0x40,0x40,0x40,0x40,0x40}; // _
+static const uint8_t FONT5x7_SLASH[5] = {0x20,0x10,0x08,0x04,0x02}; // /
+static const uint8_t FONT5x7_PLUS[5]  = {0x08,0x08,0x3E,0x08,0x08}; // +
+static const uint8_t FONT5x7_EXCL[5]  = {0x00,0x00,0x5F,0x00,0x00}; // !
+static const uint8_t FONT5x7_QMARK[5] = {0x02,0x01,0x51,0x09,0x06}; // ?
+static const uint8_t FONT5x7_PERC[5]  = {0x62,0x64,0x08,0x13,0x23}; // %
+static const uint8_t FONT5x7_LPAREN[5]= {0x00,0x1C,0x22,0x41,0x00}; // (
+static const uint8_t FONT5x7_RPAREN[5]= {0x00,0x41,0x22,0x1C,0x00}; // )
+
+
+static const uint8_t* font5x7_get(char c)
+{
+  switch (c) {
+    // space
+    case ' ': return FONT5x7_SPACE;
+
+    // digits
+    case '0': return FONT5x7_0;
+    case '1': return FONT5x7_1;
+    case '2': return FONT5x7_2;
+    case '3': return FONT5x7_3;
+    case '4': return FONT5x7_4;
+    case '5': return FONT5x7_5;
+    case '6': return FONT5x7_6;
+    case '7': return FONT5x7_7;
+    case '8': return FONT5x7_8;
+    case '9': return FONT5x7_9;
+
+    // lowercase
+    case 'a': return FONT5x7_a;
+    case 'b': return FONT5x7_b;
+    case 'c': return FONT5x7_c;
+    case 'd': return FONT5x7_d;
+    case 'e': return FONT5x7_e;
+    case 'f': return FONT5x7_f;
+    case 'g': return FONT5x7_g;
+    case 'h': return FONT5x7_h;
+    case 'i': return FONT5x7_i;
+    case 'j': return FONT5x7_j;
+    case 'k': return FONT5x7_k;
+    case 'l': return FONT5x7_l;
+    case 'm': return FONT5x7_m;
+    case 'n': return FONT5x7_n;
+    case 'o': return FONT5x7_o;
+    case 'p': return FONT5x7_p;
+    case 'q': return FONT5x7_q;
+    case 'r': return FONT5x7_r;
+    case 's': return FONT5x7_s;
+    case 't': return FONT5x7_t;
+    case 'u': return FONT5x7_u;
+    case 'v': return FONT5x7_v;
+    case 'w': return FONT5x7_w;
+    case 'x': return FONT5x7_x;
+    case 'y': return FONT5x7_y;
+    case 'z': return FONT5x7_z;
+    case 'A': return FONT5x7_A;
+    case 'B': return FONT5x7_B;
+    case 'C': return FONT5x7_C;
+    case 'D': return FONT5x7_D;
+    case 'E': return FONT5x7_E;
+    case 'F': return FONT5x7_F;
+    case 'G': return FONT5x7_G;
+    case 'H': return FONT5x7_H;
+    case 'I': return FONT5x7_I;
+    case 'J': return FONT5x7_J;
+    case 'K': return FONT5x7_K;
+    case 'L': return FONT5x7_L;
+    case 'M': return FONT5x7_M;
+    case 'N': return FONT5x7_N;
+    case 'O': return FONT5x7_O;
+    case 'P': return FONT5x7_P;
+    case 'Q': return FONT5x7_Q;
+    case 'R': return FONT5x7_R;
+    case 'S': return FONT5x7_S;
+    case 'T': return FONT5x7_T;
+    case 'U': return FONT5x7_U;
+    case 'V': return FONT5x7_V;
+    case 'W': return FONT5x7_W;
+    case 'X': return FONT5x7_X;
+    case 'Y': return FONT5x7_Y;
+    case 'Z': return FONT5x7_Z;
+    // punctuation
+    case ':': return FONT5x7_COLON;
+    case '.': return FONT5x7_DOT;
+    case ',': return FONT5x7_COMMA;
+    case '-': return FONT5x7_DASH;
+    case '_': return FONT5x7_UNDER;
+    case '/': return FONT5x7_SLASH;
+    case '+': return FONT5x7_PLUS;
+    case '!': return FONT5x7_EXCL;
+    case '?': return FONT5x7_QMARK;
+    case '%': return FONT5x7_PERC;
+    case '(': return FONT5x7_LPAREN;
+    case ')': return FONT5x7_RPAREN;
+
+
+    default:  return FONT5x7_SPACE;
+  }
+}
+

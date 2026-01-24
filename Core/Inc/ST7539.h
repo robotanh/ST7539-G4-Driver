@@ -40,6 +40,7 @@
 #define W_DIGIT  16
 #define W_SPACE   4   // set to your actual space width
 #define W_COLON   2
+#define LCD_COLS 128
 /* ---------- convert 7-bit to STM32 HAL 8-bit write address ---------- */
 #define ST7539_I2C_ADDR8W(addr7)    ((uint16_t)((uint16_t)(addr7) << 1))   /* W=0 */
 
