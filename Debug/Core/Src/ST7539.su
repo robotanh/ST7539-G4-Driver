@@ -16,7 +16,7 @@
 ../Core/Src/ST7539.c:273:24:font16_getw	24	static
 ../Core/Src/ST7539.c:280:6:ST7539_DrawText16x16	40	static
 ../Core/Src/ST7539.c:303:13:ST7539_Clear32	152	static
-../Core/Src/ST7539.c:319:6:Clock_Draw	80	static
-../Core/Src/ST7539.c:337:16:clock_digit_col	24	static
-../Core/Src/ST7539.c:389:6:ST7539_EraseGlyph16x16	40	static
-../Core/Src/ST7539.c:411:6:ST7539_EraseClockDigit	24	static
+../Core/Src/ST7539.c:319:6:Clock_Draw	88	static
+../Core/Src/ST7539.c:344:16:clock_digit_col	24	static
+../Core/Src/ST7539.c:396:6:ST7539_EraseGlyph16x16	40	static
+../Core/Src/ST7539.c:418:6:ST7539_EraseClockDigit	24	static

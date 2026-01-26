@@ -317,27 +317,34 @@ static void ST7539_Clear32(I2C_HandleTypeDef *hi2c)
 
 
 void Clock_Draw(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t col,
-                           uint8_t hh, uint8_t mm, uint8_t ss)
+                uint8_t hh, uint8_t mm, uint8_t ss)
 {
-  char buf[16];
-  // format: "HH:MM:SS"
+  // sanitize inputs
+  if (hh > 23) hh = 0;
+  if (mm > 59) mm = 0;
+  if (ss > 59) ss = 0;
+
+  char buf[24];
+
+  // "H H : M M : S S"
   snprintf(buf, sizeof(buf),
            "%u %u : %u %u : %u %u",
-           hh/10, hh%10, mm/10, mm%10, ss/10, ss%10);
+           (unsigned)(hh/10), (unsigned)(hh%10),
+           (unsigned)(mm/10), (unsigned)(mm%10),
+           (unsigned)(ss/10), (unsigned)(ss%10));
 
-  // Clear only the 2-page band you draw into (optional).
-  // If you don't have region-clear, just clear full screen each second (safe but slower).
+  // clear then draw
   ST7539_Clear32(hi2c);
-
   ST7539_DrawText16x16(hi2c, page, col, buf);
 }
+
 
 
 // Compute X position of each digit in "H H : M M : S S"
 static uint8_t clock_digit_col(uint8_t base_col, uint8_t digit_index)
 {
     // positions in tokens: D sp D sp : sp D sp D sp : sp D sp D
-    // token widths:        16  3 16  3 2  3 16 3 16 3 2 3 16 3 16
+    // token widths:        16  4 16  4 2  4 16 4 16 4 2 4 16 4 16
 
     uint8_t col = base_col;
 
