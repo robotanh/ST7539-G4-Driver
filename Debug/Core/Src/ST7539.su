@@ -20,3 +20,5 @@
 ../Core/Src/ST7539.c:344:16:clock_digit_col	24	static
 ../Core/Src/ST7539.c:396:6:ST7539_EraseGlyph16x16	40	static
 ../Core/Src/ST7539.c:418:6:ST7539_EraseClockDigit	24	static
+../Core/Src/ST7539.c:425:16:clock_colon_col	24	static
+../Core/Src/ST7539.c:443:6:ST7539_EraseClockColon	24	static

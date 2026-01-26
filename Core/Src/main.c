@@ -162,8 +162,9 @@ int main(void)
 	    // page=1 means it uses pages 1 and 2 (since 16px tall uses page and page+1)
 	    Clock_Draw(&hi2c1, 1, 0, hh, mm, ss);
 
-	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 0);
-	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 1);
+//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 0);
+//	    ST7539_EraseClockDigit(&hi2c1, 1, 0, 1);
+	    ST7539_EraseClockColon(&hi2c1, 1, 0, 1);
 //		  ST7539_DrawLine5x7(&hi2c1, 0, 0, "Nhiet do: 234");
 //		  ST7539_DrawLine5x7(&hi2c1, 1, 0, "Do am:  12");
 //		  ST7539_DrawLine5x7(&hi2c1, 2, 0, "Khi gas:  23");

@@ -74,6 +74,7 @@ HAL_StatusTypeDef ST7539_WriteData(I2C_HandleTypeDef *hi2c, uint8_t data8w, cons
 void Clock_Draw(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t col,
                            uint8_t hh, uint8_t mm, uint8_t ss);
 void ST7539_EraseClockDigit(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t base_col, uint8_t digit_index);
+void ST7539_EraseClockColon(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t base_col, uint8_t colon_index);
 
 
 

@@ -421,4 +421,28 @@ void ST7539_EraseClockDigit(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t base_
     ST7539_EraseGlyph16x16(hi2c, page, col, W_DIGIT);
 }
 
+// colon_index: 0 = first ':' (HH:MM), 1 = second ':' (MM:SS)
+static uint8_t clock_colon_col(uint8_t base_col, uint8_t colon_index)
+{
+    uint8_t col = base_col;
+
+    // After "H H " => col at first ':'
+    col += W_DIGIT;  col += W_SPACE;   // H tens + space
+    col += W_DIGIT;  col += W_SPACE;   // H ones + space
+
+    if (colon_index == 0) return col;  // first ':'
+
+    // Move past first ':' + space + "M M " to reach second ':'
+    col += W_COLON;  col += W_SPACE;   // ':' + space
+    col += W_DIGIT;  col += W_SPACE;   // M tens + space
+    col += W_DIGIT;  col += W_SPACE;   // M ones + space
+
+    return col;                         // second ':'
+}
+
+void ST7539_EraseClockColon(I2C_HandleTypeDef *hi2c, uint8_t page, uint8_t base_col, uint8_t colon_index)
+{
+    uint8_t col = clock_colon_col(base_col, colon_index);
+    ST7539_EraseGlyph16x16(hi2c, page, col, W_COLON); // W_COLON = 2
+}
 
